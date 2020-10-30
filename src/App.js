@@ -3,15 +3,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
-import Formulario from "./components/formulario/Formulario";
+// import Formulario from "./components/formulario/Formulario";
+// import Productos from "./components/productos/Productos";
+import Clientes from './components/clientes/Clientes';
 
 export default function App() {
   return (
     <Router>
       <div>
-        <nav>
+        {/* <nav>
           <ul>
             <li>
               <Link to="/">Formulario</Link>
@@ -23,30 +24,22 @@ export default function App() {
               <Link to="/clientes">Clientes</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/productos">
-            <Productos />
-          </Route>
-          <Route path="/clientes">
+          {/* <Route path="/productos">
             <Clientes />
           </Route>
+          <Route path="/clientes">
+            <Productos />
+          </Route> */}
           <Route path="/">
-            <Formulario />
+            <Clientes />
           </Route>
         </Switch>
       </div>
     </Router>
   );
-}
-
-function Clientes() {
-  return <h2>Clientes</h2>;
-}
-
-function Productos() {
-  return <h2>Productos</h2>;
 }

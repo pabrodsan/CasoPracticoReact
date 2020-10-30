@@ -1,42 +1,37 @@
-import React, {Fragment, useState} from 'react';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Form, Input, Button, Label } from "reactstrap";
 
 const Formulario = () => {
+  const { handleSubmit, register, errors } = useForm();
+  const onSubmit = values => console.log(values);
 
-    const [datos, setDatos] = useState({
-        nombre: '',
-        apellido: ''
-    })
+  return (
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Input
+        name="email"
+        ref={register({
+          required: "Required",
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: "invalid email address"
+          }
+        })}
+      />
+      <Label>
+        {errors.email && errors.email.message}
+      </Label>
 
-    const handleInputChange = (event) => {
-        setDatos({
-            ...datos,
-            [event.target.name] : event.target.value
-        })
-    }
+      <Input
+        name="username"
+        ref={register({
+          validate: value => value !== "admin" || "Nice try!"
+        })}
+      />
+      {errors.username && errors.username.message}
 
-    const enviarDatos = (event) => {
-        event.preventDefault()
-        console.log('enviando datos...' + datos.nombre + ' ' + datos.apellido)
-    }
-
-    return (
-        <Fragment>
-            <h1>Formulario</h1>
-            <form className="row" onSubmit={enviarDatos}>
-                <div className="col-md-3">
-                    <input type="text" placeholder="Nombre" className="form-control" onChange={handleInputChange} name="nombre"></input>
-                </div>
-                <div className="col-md-3">
-                    <input type="text" placeholder="Apellido" className="form-control" onChange={handleInputChange} name="apellido"></input>
-                </div>
-                <button type="submit" className="btn btn-primary">Enviar</button>
-            </form>
-            <ul>
-                <li>{datos.nombre}</li>
-                <li>{datos.apellido}</li>
-            </ul>
-        </Fragment>
-    );
-}
- 
+      <Button type="submit">Submit</Button>
+    </Form>
+  );
+};
 export default Formulario;
