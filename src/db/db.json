@@ -1,0 +1,53 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "customerName": "Lupe Conley",
+      "email": "lupeconley@polarium.com",
+      "ip": "198.37.89.141",
+      "registered": "2014-01-27"
+    },
+    {
+      "id": 2,
+      "customerName": "Ursula Stark",
+      "email": "ursulastark@polarium.com",
+      "ip": "23.23.237.218",
+      "registered": "2018-11-09"
+    },
+    {
+      "id": 5,
+      "customerName": "Bass Everett",
+      "email": "basseverett@polarium.com",
+      "ip": "1.138.98.208",
+      "registered": "2018-09-12"
+    },
+    {
+      "id": 6,
+      "customerName": "Belinda Cox",
+      "email": "belindacox@polarium.com",
+      "ip": "231.147.23.174",
+      "registered": "2019-06-04"
+    },
+    {
+      "id": 7,
+      "customerName": "Alissa Leach",
+      "email": "alissaleach@polarium.com",
+      "ip": "250.62.208.187",
+      "registered": "2014-11-14"
+    },
+    {
+      "id": 8,
+      "customerName": "Camille Becker",
+      "email": "camillebecker@polarium.com",
+      "ip": "83.176.237.131",
+      "registered": "2014-05-25"
+    },
+    {
+      "id": 9,
+      "customerName": "Adrian",
+      "email": "pablo@admin.com",
+      "ip": "42.238.181.153",
+      "registered": "2016-09-10"
+    }
+  ]
+}
