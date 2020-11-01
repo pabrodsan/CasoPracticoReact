@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Table, Button, Spinner } from 'reactstrap';
 import './customer.scss';
 import ModalForm from '../commons/modal/ModalForm';
+import moment from 'moment';
+import localIpUrl from 'local-ip-url'
 
 const URL = 'http://localhost:3000/customers'
 
@@ -17,7 +19,6 @@ const Customer = () => {
     }, [])
 
     const getData = () => {
-        
         axios.get(URL).then(res => {
             console.log(res);
             setLoading(false);
@@ -40,6 +41,15 @@ const Customer = () => {
         })
     }
 
+    const addData = (data) => {
+        data.ip = localIpUrl('public', 'ipv4');
+        data.registered = moment().format('YYYY-MM-DD');
+        axios.post(`${URL}`, data).then(res => {
+            setOpenModal(false);
+            getData();
+        })
+    }
+
     const openUpdateModal = (data) => {
         setCostumerData(data);
         setOpenModal(true);
@@ -47,7 +57,7 @@ const Customer = () => {
 
     const handleInputChange = (event) =>{
         setCostumerData({...costumerData, [event.target.name]: event.target.value});
-      }
+    }
 
       // TODO mover a un componeten común Table
     const renderHeader = () => {
@@ -79,20 +89,23 @@ const Customer = () => {
     return (
         <>
             {isLoading ? (<Spinner color="primary" />) : (
-                <Table id='employee'>
-                    <thead>
-                        <tr>{renderHeader()}</tr>
-                    </thead>
-                    <tbody>
-                        {renderBody()}
-                    </tbody>
-                </Table>
-                )}
-            
+                <>
+                    <Button color="success" onClick={() => openUpdateModal({})}>Add customer</Button>{' '}
+                    <Table id='employee'>
+                        <thead>
+                            <tr>{renderHeader()}</tr>
+                        </thead>
+                        <tbody>
+                            {renderBody()}
+                        </tbody>
+                    </Table>
+                </>
+            )}
             <ModalForm 
                 isOpen={openModal}
                 toggle={() => setOpenModal(false)}
                 updateData={updateData}
+                addData={addData}
                 data={costumerData}
                 handleInputChange={handleInputChange}
             />

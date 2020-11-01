@@ -26,7 +26,8 @@ const Formulario = () => {
   const onSubmit = () => {
     const validate = bbdd.find(e => e.email === data.email && e.password === data.password);
     if (validate) {
-      history.push('/customers');
+      // history.push('/customers');
+      history.push('/products');
     } else {
       setValidData(true);
     }

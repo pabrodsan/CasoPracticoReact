@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from 'reactstrap';
 
-const ModalForm = ({isOpen, toggle, updateData, data, handleInputChange}) => {
+const ModalForm = ({isOpen, toggle, updateData, data, handleInputChange, addData}) => {
 
   return (
     <div>
@@ -22,7 +22,7 @@ const ModalForm = ({isOpen, toggle, updateData, data, handleInputChange}) => {
           </FormGroup> */}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => updateData(data)}>Ok</Button>
+          <Button color="primary" onClick={() => addData(data)}>Ok</Button>
           <Button color="secondary" onClick={toggle}>Cancel</Button>
         </ModalFooter>
       </Modal>

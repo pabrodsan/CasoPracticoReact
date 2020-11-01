@@ -7,6 +7,7 @@ import {
 import Formulario from "./components/form/Form";
 import Customer from "./components/customer/Customer";
 import './App.scss'
+import Product from "./components/product/Product";
 
 export default function App() {
   return (
@@ -17,6 +18,9 @@ export default function App() {
         <Switch>
           <Route path="/customers">
             <Customer />
+          </Route>
+          <Route path="/products">
+            <Product />
           </Route>
           <Route path="/">
             <Formulario />
