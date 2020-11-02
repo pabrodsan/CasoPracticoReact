@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from 'reactstrap';
 
-const ModalForm = ({isOpen, toggle, updateData, data, handleInputChange, addData}) => {
+const ModalForm = ({isOpen, toggle, acctionData, data, handleInputChange, addData}) => {
 
   return (
     <div>
@@ -16,13 +16,9 @@ const ModalForm = ({isOpen, toggle, updateData, data, handleInputChange, addData
             <Label for="Email">Email</Label>
             <Input invalid={true} type="email" name="email" id="email" value={data.email} onChange={handleInputChange}/>
           </FormGroup>
-          {/* <FormGroup >
-            <Label for="Registered">Registered</Label>
-            <Input invalid={true} type="registered" name="registered" id="registered" onChange={handleInputChange} />
-          </FormGroup> */}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => addData(data)}>Ok</Button>
+          <Button color="primary" onClick={() => acctionData(data)}>Ok</Button>
           <Button color="secondary" onClick={toggle}>Cancel</Button>
         </ModalFooter>
       </Modal>

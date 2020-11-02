@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import client from '../../apollo/ApolloCliente';
 import * as queries from '../../apollo/query/index';
 import * as mutations from '../../apollo/mutation/index';
-// import ModalForm from '../commons/modal/ModalForm';
+import ModalForm from '../commons/modal/ModalFormProduct';
 import { Table, Button, Spinner } from 'reactstrap';
+import './product.scss';
+
 
 const Product = () => {
 
@@ -11,6 +13,7 @@ const Product = () => {
     const [openModal, setOpenModal] = useState(false)
     const [singleProduct, setSingleProduct] = useState({})
     const [isLoading, setLoading] = useState(true);
+    const [isUpdate, setIsUpdate] = useState(undefined);
 
     useEffect(() => {
         getProducts()
@@ -25,15 +28,16 @@ const Product = () => {
           })
     }
 
-    const addProduct = () => {
+    const addProduct = (data) => {
         client.mutate({
             mutation: mutations.addProduct,
             variables:{
-                productName: 'Mesa',
-                price: 800
+                productName: data.productName,
+                price: data.price
             }
         }).then(res => {
             setProducts([...products, res.data.addProduct])
+            setOpenModal(false);
             console.log(res.data.addProduct);
         })
     }
@@ -47,12 +51,50 @@ const Product = () => {
         }).then(res => {
             const productsUpdate = products.filter(e => e.id !== id)
             setProducts(productsUpdate)
-            console.log(res.data.addProduct);
         })
     }
 
+    const updateProduct = (data) => {
+        client.mutate({
+            mutation: mutations.updateProduct,
+            variables:{
+                id: data.id,
+                productName: data.productName,
+                price: data.price
+            }
+        }).then(res => {
+            const resProduct = res.data.updateProduct;
+            console.log(resProduct)
+            // const productUpdate = products.find(e => e.id === data.id);
+            const productsUpdate = products.map(product => {
+                if (product.id === resProduct.id) {
+                    return {
+                        id: resProduct.id,
+                        productName: resProduct.productName,
+                        price: resProduct.price
+                    }
+                } else {
+                    return {...product}
+                }
+
+            })
+            setProducts(productsUpdate);
+            setOpenModal(false);
+        })
+    }
+
+    const openUpdateModal = (data, isUpdate) => {
+        setSingleProduct(data);
+        setIsUpdate(isUpdate);
+        setOpenModal(true);
+    }
+
+    const handleInputChange = (event) =>{
+        setSingleProduct({...singleProduct, [event.target.name]: event.target.value});
+    }
+
     const renderHeader = () => {
-        let headerElement = ['Product Name', 'Price', 'acctions']
+        let headerElement = ['Product Name', 'Price ($)', 'acctions']
 
         return headerElement.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
@@ -60,14 +102,14 @@ const Product = () => {
     }
 
     const renderBody = () => {
-        return products && products.map(({ id, productName, price, actions }) => {
+        return products && products.map(({ id, productName, price }) => {
             return (
                 <tr key={id}>
                     <td>{productName}</td>
                     <td>{price}</td>
                     <td className='opration'>
-                        <Button color="primary" >Update</Button>
-                        <Button color="danger">Delete</Button>
+                        <Button color="primary" style={{marginRight: '1rem'}} onClick={() => openUpdateModal({id, productName, price}, true)} >Update</Button>
+                        <Button color="danger" onClick={() => removeProduct(id)}>Delete</Button>
                     </td>
                 </tr>
             )
@@ -78,7 +120,7 @@ const Product = () => {
         <>
             {isLoading ? (<Spinner color="primary" />) : (
                 <>
-                    <Button color="success" onClick={() => addProduct()}>Add customer</Button>{' '}
+                    <Button color="success" onClick={() => openUpdateModal({}, false)}>Add product</Button>{' '}
                     <Table id='employee'>
                         <thead>
                             <tr>{renderHeader()}</tr>
@@ -89,15 +131,16 @@ const Product = () => {
                     </Table>
                 </>
             )}
-            {/*             
+                        
             <ModalForm 
                 isOpen={openModal}
                 toggle={() => setOpenModal(false)}
-                updateData={updateData}
-                addData={addData}
+                // updateData={updateProduct}
+                // addData={addProduct}
+                acctionData={isUpdate ? updateProduct : addProduct}
                 data={singleProduct}
                 handleInputChange={handleInputChange}
-            /> */}
+            />
         </>
     )
 

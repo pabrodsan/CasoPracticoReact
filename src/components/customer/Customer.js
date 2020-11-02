@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Table, Button, Spinner } from 'reactstrap';
 import './customer.scss';
-import ModalForm from '../commons/modal/ModalForm';
+import ModalForm from '../commons/modal/ModalFormCustomer';
 import moment from 'moment';
 import localIpUrl from 'local-ip-url'
 
@@ -13,6 +13,7 @@ const Customer = () => {
     const [openModal, setOpenModal] = useState(false)
     const [costumerData, setCostumerData] = useState({})
     const [isLoading, setLoading] = useState(true);
+    const [isUpdate, setIsUpdate] = useState(undefined);
 
     useEffect(() => {
         getData()
@@ -33,7 +34,7 @@ const Customer = () => {
         })
     }
 
-    const updateData = (data) => {
+    const updateCustomer = (data) => {
         // const updateData = customers.find(customer => customer.id === id);
         axios.put(`${URL}/${data.id}`, data).then(res => {
             setOpenModal(false);
@@ -41,7 +42,7 @@ const Customer = () => {
         })
     }
 
-    const addData = (data) => {
+    const addCustomer = (data) => {
         data.ip = localIpUrl('public', 'ipv4');
         data.registered = moment().format('YYYY-MM-DD');
         axios.post(`${URL}`, data).then(res => {
@@ -50,9 +51,10 @@ const Customer = () => {
         })
     }
 
-    const openUpdateModal = (data) => {
+    const openUpdateModal = (data, isUpdate) => {
         setCostumerData(data);
         setOpenModal(true);
+        setIsUpdate(isUpdate)
     }
 
     const handleInputChange = (event) =>{
@@ -78,7 +80,7 @@ const Customer = () => {
                     <td>{ip}</td>
                     <td>{registered}</td>
                     <td className='opration'>
-                        <Button color="primary" onClick={() => openUpdateModal({ id, customerName, email, ip, registered })}>Update</Button>
+                        <Button color="primary" style={{marginRight: '1rem'}} onClick={() => openUpdateModal({ id, customerName, email, ip, registered }, true)}>Update</Button>
                         <Button color="danger" onClick={() => removeData(id)}>Delete</Button>
                     </td>
                 </tr>
@@ -90,7 +92,7 @@ const Customer = () => {
         <>
             {isLoading ? (<Spinner color="primary" />) : (
                 <>
-                    <Button color="success" onClick={() => openUpdateModal({})}>Add customer</Button>{' '}
+                    <Button color="success" onClick={() => openUpdateModal({}, false)}>Add customer</Button>{' '}
                     <Table id='employee'>
                         <thead>
                             <tr>{renderHeader()}</tr>
@@ -104,8 +106,7 @@ const Customer = () => {
             <ModalForm 
                 isOpen={openModal}
                 toggle={() => setOpenModal(false)}
-                updateData={updateData}
-                addData={addData}
+                acctionData={isUpdate ? updateCustomer : addCustomer}
                 data={costumerData}
                 handleInputChange={handleInputChange}
             />
