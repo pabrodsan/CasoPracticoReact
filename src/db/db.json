@@ -37,7 +37,7 @@
     },
     {
       "id": 8,
-      "customerName": "Camille Becker",
+      "customerName": "Camille ",
       "email": "camillebecker@polarium.com",
       "ip": "83.176.237.131",
       "registered": "2014-05-25"
@@ -69,6 +69,20 @@
       "ip": "127.0.0.1",
       "registered": "2020-11-01",
       "id": 12
+    },
+    {
+      "customerName": "Pablo",
+      "email": "pepito@gmai.com",
+      "ip": "127.0.0.1",
+      "registered": "2020-11-02",
+      "id": 13
+    },
+    {
+      "customerName": "Adrian",
+      "email": "Rodguez@gmail.com",
+      "ip": "127.0.0.1",
+      "registered": "2020-11-02",
+      "id": 14
     }
   ]
 }

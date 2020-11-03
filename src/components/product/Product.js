@@ -4,8 +4,8 @@ import * as queries from '../../apollo/query/index';
 import * as mutations from '../../apollo/mutation/index';
 import ModalForm from '../commons/modal/ModalFormProduct';
 import { Table, Button, Spinner } from 'reactstrap';
+import NavBar from '../commons/NavBar';
 import './product.scss';
-
 
 const Product = () => {
 
@@ -118,17 +118,19 @@ const Product = () => {
 
     return (
         <>
-            {isLoading ? (<Spinner color="primary" />) : (
+            {isLoading ? (<Spinner color="primary"/>) : (
                 <>
-                    <Button color="success" onClick={() => openUpdateModal({}, false)}>Add product</Button>{' '}
-                    <Table id='employee'>
+                    <NavBar/>
+                    <Table id='product'>
                         <thead>
                             <tr>{renderHeader()}</tr>
                         </thead>
-                        <tbody>
+                        <tbody className={"tbody"}>
                             {renderBody()}
                         </tbody>
                     </Table>
+                    <Button color="success" onClick={() => openUpdateModal({}, false)}>Add product</Button>
+
                 </>
             )}
                         

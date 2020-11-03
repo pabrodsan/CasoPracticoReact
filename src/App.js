@@ -12,9 +12,7 @@ import Product from "./components/product/Product";
 export default function App() {
   return (
     <Router>
-      <div>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+      <div className={"cardBody"}>
         <Switch>
           <Route path="/customers">
             <Customer />

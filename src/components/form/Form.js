@@ -40,6 +40,7 @@ const Formulario = () => {
   return (
     <div className="container">
       <Card className="form">
+        <Label className={"title"}>Please sign in</Label>
         <CardBody>
           <FormGroup>
             <Label for="Email">Email</Label>
@@ -48,8 +49,8 @@ const Formulario = () => {
           <FormGroup >
             <Label for="Password">Password</Label>
             <Input invalid={validData} type="password" name="password" id="password" value={data.password} onChange={handleInputChange} />
-            <Button onClick={onSubmit} color="primary">Aceptar</Button>
           </FormGroup>
+            <Button onClick={onSubmit} className={"buttonSignIn"} color="primary">Sign in</Button>
           </CardBody>
       </Card>
     </div>

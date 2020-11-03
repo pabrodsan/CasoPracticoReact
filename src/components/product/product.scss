@@ -3,34 +3,34 @@
 body {
   font-family: "Quicksand", sans-serif;
   display: flex;
-  justify-content: center;
   padding: 0;
   color: #4d4d4d;
+  align-items: center;
+  justify-content: center;
 }
 
 #title {
   text-align: center;
 }
 
-#employee {
+#product {
   border-collapse: collapse;
   border: 3px solid #ddd;
 }
 
-#employee td,
-#employee th {
+#product td, #product th {
   border: 1px solid #ddd;
   padding: 12px;
 }
 
-#employee tr:hover {
+#product tr:hover {
   background-color: #ddd;
 }
 
-#employee th {
+#product th {
   padding: 10px;
   text-align: center;
-  background-color: #4caf50;
+  background-color: #22350c;
   color: white;
 }
 
@@ -53,4 +53,8 @@ body {
 
 .button:active {
   border: 1px solid blue;
+}
+
+.tbody {
+  background-color: white;
 }

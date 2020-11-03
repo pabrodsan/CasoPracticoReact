@@ -92,15 +92,15 @@ const Customer = () => {
         <>
             {isLoading ? (<Spinner color="primary" />) : (
                 <>
-                    <Button color="success" onClick={() => openUpdateModal({}, false)}>Add customer</Button>{' '}
-                    <Table id='employee'>
+                    <Table id='customer'>
                         <thead>
                             <tr>{renderHeader()}</tr>
                         </thead>
-                        <tbody>
+                        <tbody className={"tbody"}>
                             {renderBody()}
                         </tbody>
                     </Table>
+                    <Button color="success" className={"buttonAdd"} onClick={() => openUpdateModal({}, false)}>Add customer</Button>{' '}
                 </>
             )}
             <ModalForm 

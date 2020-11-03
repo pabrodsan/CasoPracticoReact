@@ -9,4 +9,20 @@
     flex-direction: row;
     align-self: center;
     border-color: black;
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.title {
+    // text-align: center;
+    font-size: 1.75rem;
+    align-self: center;
+}
+
+.buttonSignIn {
+    margin-top: 1rem;
+    align-self: center;
+    width: 100%;
 }

@@ -5,29 +5,29 @@ body {
   display: flex;
   justify-content: center;
   padding: 0;
-  color: #4d4d4d;
+  color: #d31616;
 }
 
 #title {
   text-align: center;
 }
 
-#employee {
+#customer {
   border-collapse: collapse;
   border: 3px solid #ddd;
 }
 
-#employee td,
-#employee th {
+#customer td,
+#customer th {
   border: 1px solid #ddd;
   padding: 12px;
 }
 
-#employee tr:hover {
+#customer tr:hover {
   background-color: #ddd;
 }
 
-#employee th {
+#customer th {
   padding: 10px;
   text-align: center;
   background-color: #4caf50;
@@ -53,4 +53,12 @@ body {
 
 .button:active {
   border: 1px solid blue;
+}
+
+.tbody {
+  background-color: white;
+}
+
+.buttonAdd {
+  margin-bottom: 1rem;
 }

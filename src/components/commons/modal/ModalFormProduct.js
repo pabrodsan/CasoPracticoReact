@@ -6,7 +6,7 @@ const ModalForm = ({isOpen, toggle, acctionData, data, handleInputChange}) => {
   return (
     <div>
       <Modal isOpen={isOpen} toggle={toggle}>
-        <ModalHeader toggle={toggle}></ModalHeader>
+        <ModalHeader toggle={toggle}/>
         <ModalBody>
           <FormGroup>
             <Label for="ProductName">Product name</Label>
