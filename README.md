@@ -10,7 +10,10 @@ El db.json contiene datos de clientes que han sido generados gracias a Json-gene
 ## Tecnologías utilizadas
 
 * React
-*
+* axios
+* graphql
+* apollo/client
+* react-bootstrap
 
 ## Despliegue de la app
 
