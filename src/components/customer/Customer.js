@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Table, Button, Spinner, Alert  } from 'reactstrap';
+import { Table, Button, Spinner, Alert  } from 'react-bootstrap';
 import './customer.scss';
 import ModalForm from '../commons/modal/ModalFormCustomer';
 import moment from 'moment';
@@ -91,9 +91,9 @@ const Customer = () => {
                     <td>{email}</td>
                     <td>{ip}</td>
                     <td>{registered}</td>
-                    <td className='opration'>
-                        <Button color="primary" style={{marginRight: '1rem'}} onClick={() => openUpdateModal({ id, customerName, email, ip, registered }, true)}>Update</Button>
-                        <Button color="danger" onClick={() => removeData(id)}>Delete</Button>
+                    <td style={{ textAlign:"start" }}>
+                        <Button variant="primary" style={{marginRight: '1rem'}} onClick={() => openUpdateModal({ id, customerName, email, ip, registered }, true)}>Update</Button>
+                        <Button variant="danger" onClick={() => removeData(id)}>Delete</Button>
                     </td>
                 </tr>
             )
@@ -104,16 +104,16 @@ const Customer = () => {
         <>
             {isLoading ? (<Spinner color="primary" />) : (
                 <>
-                    {renderAlert()}
-                    <Table hover>
+                    {/* {renderAlert()} */}
+                    <Table id="rwd-table">
                         <thead>
                             <tr>{renderHeader()}</tr>
                         </thead>
-                        <tbody className={"tbody"}>
+                        <tbody>
                             {renderBody()}
                         </tbody>
                     </Table>
-                    <Button color="success" className={"buttonAdd"} onClick={() => openUpdateModal({}, false)}>Add customer</Button>
+                    <Button variant="success" className={"buttonAdd"} onClick={() => openUpdateModal({}, false)}>Add customer</Button>
                 </>
             )}
             <ModalForm 

@@ -8,11 +8,13 @@ import Formulario from "./components/form/Form";
 import Customer from "./components/customer/Customer";
 import './App.scss'
 import Product from "./components/product/Product";
+import NavBar from "./components/commons/NavBar";
 
 export default function App() {
   return (
     <Router>
-      <div className={"cardBody"}>
+      <NavBar/>
+      <div className={"switch"}>
         <Switch>
           <Route path="/customers">
             <Customer />

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Button, FormGroup, Label, Input, Card, CardBody } from 'reactstrap';
+import { Button, Form, Card } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 import './form.scss';
 const bbdd = [
@@ -38,20 +38,20 @@ const Formulario = () => {
   }
 
   return (
-    <div className="container">
-      <Card className="form">
-        <Label className={"title"}>Please sign in</Label>
-        <CardBody>
-          <FormGroup>
-            <Label for="Email">Email</Label>
-            <Input invalid={validData} type="email" name="email" id="email" value={data.email} onChange={handleInputChange}/>
-          </FormGroup>
-          <FormGroup >
-            <Label for="Password">Password</Label>
-            <Input invalid={validData} type="password" name="password" id="password" value={data.password} onChange={handleInputChange} />
-          </FormGroup>
-            <Button onClick={onSubmit} className={"buttonSignIn"} color="primary">Sign in</Button>
-          </CardBody>
+    <div className="containerForm">
+      <Card className="formStyle">
+        <text className={"title"}>Please sign in</text>
+        <Card.Body>
+          <Form.Group>
+            <text for="Email">Email</text>
+            <Form.Control placeholder="example@gmail.com" invalid={validData} type="email" name="email" id="email" value={data.email} onChange={handleInputChange}/>
+          </Form.Group>
+          <Form.Group >
+            <text for="Password">Password</text>
+            <Form.Control invalid={validData} type="password" name="password" id="password" value={data.password} onChange={handleInputChange} />
+          </Form.Group>
+            <Button target="true" onClick={onSubmit} className={"buttonSignIn"} color="primary">Sign in</Button>
+          </Card.Body>
       </Card>
     </div>
   );

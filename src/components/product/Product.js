@@ -3,7 +3,7 @@ import client from '../../apollo/ApolloCliente';
 import * as queries from '../../apollo/query/index';
 import * as mutations from '../../apollo/mutation/index';
 import ModalForm from '../commons/modal/ModalFormProduct';
-import { Table, Button, Spinner } from 'reactstrap';
+import { Table, Button, Spinner } from 'react-bootstrap';
 import NavBar from '../commons/NavBar';
 import './product.scss';
 

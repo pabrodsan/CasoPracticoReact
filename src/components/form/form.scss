@@ -1,24 +1,24 @@
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 65vh;
+.containerForm {
+  margin-top: 5rem;
 }
 
-.form {
+.formStyle {
     flex-direction: row;
     align-self: center;
     border-color: black;
+    border-width: 0.5em !important;
     width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: auto;
+    background-color: aliceblue;
 }
 
 .title {
     // text-align: center;
     font-size: 1.75rem;
     align-self: center;
+    font-weight: bold;
 }
 
 .buttonSignIn {
