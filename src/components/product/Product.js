@@ -4,8 +4,8 @@ import * as queries from '../../apollo/query/index';
 import * as mutations from '../../apollo/mutation/index';
 import ModalForm from '../commons/modal/ModalFormProduct';
 import { Table, Button, Spinner } from 'react-bootstrap';
-import NavBar from '../commons/NavBar';
 import './product.scss';
+import GenericAlert from '../commons/GenericAlert';
 
 const Product = () => {
 
@@ -14,6 +14,7 @@ const Product = () => {
     const [singleProduct, setSingleProduct] = useState({})
     const [isLoading, setLoading] = useState(true);
     const [isUpdate, setIsUpdate] = useState(undefined);
+    const [showError, setShowError] = useState(false);
 
     useEffect(() => {
         getProducts()
@@ -24,8 +25,11 @@ const Product = () => {
             query: queries.queryGetAllProducts
           }).then(res => {
             setProducts(res.data.allProducts)
-            setLoading(false)
           })
+          .catch(error => {
+            setShowError(true)
+          })
+          .finally(() => setLoading(false))
     }
 
     const addProduct = (data) => {
@@ -38,8 +42,11 @@ const Product = () => {
         }).then(res => {
             setProducts([...products, res.data.addProduct])
             setOpenModal(false);
-            console.log(res.data.addProduct);
         })
+        .catch(error => {
+            setShowError(true)
+        })
+        .finally(() => {setLoading(false)})
     }
 
     const removeProduct = (id) => {
@@ -52,6 +59,10 @@ const Product = () => {
             const productsUpdate = products.filter(e => e.id !== id)
             setProducts(productsUpdate)
         })
+        .catch(error => {
+            setShowError(true)
+        })
+        .finally(() => {setLoading(false)})
     }
 
     const updateProduct = (data) => {
@@ -81,6 +92,10 @@ const Product = () => {
             setProducts(productsUpdate);
             setOpenModal(false);
         })
+        .catch(error => {
+            setShowError(true)
+        })
+        .finally(() => {setLoading(false)})
     }
 
     const openUpdateModal = (data, isUpdate) => {
@@ -108,8 +123,8 @@ const Product = () => {
                     <td>{productName}</td>
                     <td>{price}</td>
                     <td className='opration'>
-                        <Button color="primary" style={{marginRight: '1rem'}} onClick={() => openUpdateModal({id, productName, price}, true)} >Update</Button>
-                        <Button color="danger" onClick={() => removeProduct(id)}>Delete</Button>
+                        <Button variant="primary" style={{marginRight: '1rem'}} onClick={() => openUpdateModal({id, productName, price}, true)} >Update</Button>
+                        <Button variant="danger" onClick={() => removeProduct(id)}>Delete</Button>
                     </td>
                 </tr>
             )
@@ -118,28 +133,30 @@ const Product = () => {
 
     return (
         <>
-            {isLoading ? (<Spinner color="primary"/>) : (
-                <>
-                    <NavBar/>
-                    <Table id='product'>
-                        <thead>
-                            <tr>{renderHeader()}</tr>
-                        </thead>
-                        <tbody className={"tbody"}>
-                            {renderBody()}
-                        </tbody>
-                    </Table>
-                    <Button color="success" onClick={() => openUpdateModal({}, false)}>Add product</Button>
-
-                </>
-            )}
+            {isLoading ? (<Spinner animation="border" variant="secondary"/>) : (
+                !showError &&
+                    <>
+                        <Table id='rwd-table'>
+                            <thead>
+                                <tr>{renderHeader()}</tr>
+                            </thead>
+                            <tbody className={"tbody"}>
+                                {renderBody()}
+                            </tbody>
+                        </Table>
+                        <Button variant="success" className={"buttonAdd"} onClick={() => openUpdateModal({}, false)}>Add product</Button>
+                    </>
+                )
+            }
+            {showError ? (
+                <GenericAlert/>
+            ): null}
                         
             <ModalForm 
                 isOpen={openModal}
                 toggle={() => setOpenModal(false)}
-                // updateData={updateProduct}
-                // addData={addProduct}
                 acctionData={isUpdate ? updateProduct : addProduct}
+                isUpdate={isUpdate}
                 data={singleProduct}
                 handleInputChange={handleInputChange}
             />

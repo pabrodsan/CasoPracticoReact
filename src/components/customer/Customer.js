@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Table, Button, Spinner, Alert  } from 'react-bootstrap';
+import { Table, Button, Spinner  } from 'react-bootstrap';
 import './customer.scss';
 import ModalForm from '../commons/modal/ModalFormCustomer';
 import moment from 'moment';
 import localIpUrl from 'local-ip-url'
-import { mensajeErrorAxio } from '../utils/constants';
+import GenericAlert from '../commons/GenericAlert';
 
 const URL = 'http://localhost:3000/customers'
 
@@ -15,7 +15,7 @@ const Customer = () => {
     const [costumerData, setCostumerData] = useState({})
     const [isLoading, setLoading] = useState(true);
     const [isUpdate, setIsUpdate] = useState(undefined);
-    const [visible, setVisible] = useState(false);
+    const [showError, setShowError] = useState(false);
 
     useEffect(() => {
         getData()
@@ -26,10 +26,11 @@ const Customer = () => {
         .then(res => {
             setCustomers(res.data)
         })
-        .catch((error) => {
-            setVisible(true)
+        .catch(error => {
+            setShowError(true)
         })
-        .finally(() => setLoading(false))
+        .finally(() => {setLoading(false)})
+        
     }
 
     const removeData = (id) => {
@@ -37,6 +38,10 @@ const Customer = () => {
             const del = customers.filter(customer => id !== customer.id)
             setCustomers(del)
         })
+        .catch(error => {
+            setShowError(true)
+        })
+        .finally(() => {setLoading(false)})
     }
 
     const updateCustomer = (data) => {
@@ -45,6 +50,10 @@ const Customer = () => {
             setOpenModal(false);
             getData();
         })
+        .catch(error => {
+            setShowError(true)
+        })
+        .finally(() => {setLoading(false)})
     }
 
     const addCustomer = (data) => {
@@ -53,7 +62,12 @@ const Customer = () => {
         axios.post(`${URL}`, data).then(res => {
             setOpenModal(false);
             getData();
+            
         })
+        .catch(error => {
+            setShowError(true)
+        })
+        .finally(() => setLoading(false))
     }
 
     const openUpdateModal = (data, isUpdate) => {
@@ -64,14 +78,6 @@ const Customer = () => {
 
     const handleInputChange = (event) =>{
         setCostumerData({...costumerData, [event.target.name]: event.target.value});
-    }
-
-    const renderAlert = () => {
-        return (
-            <Alert color="danger" isOpen={visible} toggle={() => setVisible(false)}>
-                {mensajeErrorAxio}
-            </Alert>
-        )
     }
  
     const renderHeader = () => {
@@ -102,7 +108,13 @@ const Customer = () => {
 
     return (
         <>
-            {isLoading ? (<Spinner color="primary" />) : (
+            {isLoading ? (
+            <div className={"spinnerTextLoading"}>
+                <Spinner className={"spinnerSize"} animation="border" variant="secondary"/>
+                <text>Loading....</text>
+            </div>
+            ) : (
+                !showError &&
                 <>
                     {/* {renderAlert()} */}
                     <Table id="rwd-table">
@@ -116,10 +128,16 @@ const Customer = () => {
                     <Button variant="success" className={"buttonAdd"} onClick={() => openUpdateModal({}, false)}>Add customer</Button>
                 </>
             )}
+
+            {showError ? (
+                <GenericAlert/>
+            ): null}
+
             <ModalForm 
                 isOpen={openModal}
                 toggle={() => setOpenModal(false)}
                 acctionData={isUpdate ? updateCustomer : addCustomer}
+                isUpdate={isUpdate}
                 data={costumerData}
                 handleInputChange={handleInputChange}
             />

@@ -50,7 +50,7 @@ const Formulario = () => {
             <text for="Password">Password</text>
             <Form.Control invalid={validData} type="password" name="password" id="password" value={data.password} onChange={handleInputChange} />
           </Form.Group>
-            <Button target="true" onClick={onSubmit} className={"buttonSignIn"} color="primary">Sign in</Button>
+            <Button type="submit" target="true" onClick={onSubmit} className={"buttonSignIn"} color="primary">Sign in</Button>
           </Card.Body>
       </Card>
     </div>
