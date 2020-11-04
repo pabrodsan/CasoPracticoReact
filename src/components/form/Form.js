@@ -39,15 +39,15 @@ const Formulario = () => {
 
   return (
     <div className="containerForm">
-      <Card className="formStyle">
+      <Card className={"formStyle"}>
         <text className={"title"}>Please sign in</text>
         <Card.Body>
           <Form.Group>
-            <text for="Email">Email</text>
+            <text style={{fontWeight: "bold"}} for="Email">Email</text>
             <Form.Control placeholder="example@gmail.com" invalid={validData} type="email" name="email" id="email" value={data.email} onChange={handleInputChange}/>
           </Form.Group>
           <Form.Group >
-            <text for="Password">Password</text>
+            <text style={{fontWeight: "bold"}} for="Password">Password</text>
             <Form.Control invalid={validData} type="password" name="password" id="password" value={data.password} onChange={handleInputChange} />
           </Form.Group>
             <Button type="submit" target="true" onClick={onSubmit} className={"buttonSignIn"} color="primary">Sign in</Button>

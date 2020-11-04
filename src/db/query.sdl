@@ -14,12 +14,12 @@
 type Product {
   id: ID
   productName: String @fake(type: productName, locale: es)
-  price: Float @fake(type: money)
+  price: Int @fake(type: money)
 }
 
 type Query {
   product(id: ID): Product
-  allProducts(id: ID): [Product!] @listLength(min: 5 max: 7)
+  allProducts(id: ID): [Product!] @listLength(min: 10 max: 11)
   
 }
 

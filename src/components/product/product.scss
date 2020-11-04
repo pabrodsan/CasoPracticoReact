@@ -49,6 +49,7 @@ table {
             text-align: left;
             @include heading-font-regular;
             font-size: 1.25em;
+            background-color: #008cba;
         }
         
     }
@@ -57,7 +58,7 @@ table {
         border-bottom: 3px solid $primary-color;
         tr {
             border-bottom: 2px solid #ddd;
-       
+            background-color: #ddd;
             td {
                 padding: .75em 0;
                 font-size: 18px;
