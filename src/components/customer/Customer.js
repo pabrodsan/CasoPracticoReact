@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Table, Button, Spinner } from 'reactstrap';
+import { Table, Button, Spinner, Alert  } from 'reactstrap';
 import './customer.scss';
 import ModalForm from '../commons/modal/ModalFormCustomer';
 import moment from 'moment';
 import localIpUrl from 'local-ip-url'
+import { mensajeErrorAxio } from '../utils/constants';
 
 const URL = 'http://localhost:3000/customers'
 
@@ -14,17 +15,21 @@ const Customer = () => {
     const [costumerData, setCostumerData] = useState({})
     const [isLoading, setLoading] = useState(true);
     const [isUpdate, setIsUpdate] = useState(undefined);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         getData()
     }, [])
 
     const getData = () => {
-        axios.get(URL).then(res => {
-            console.log(res);
-            setLoading(false);
+        axios.get(URL)
+        .then(res => {
             setCustomers(res.data)
         })
+        .catch((error) => {
+            setVisible(true)
+        })
+        .finally(() => setLoading(false))
     }
 
     const removeData = (id) => {
@@ -61,7 +66,14 @@ const Customer = () => {
         setCostumerData({...costumerData, [event.target.name]: event.target.value});
     }
 
-      // TODO mover a un componeten común Table
+    const renderAlert = () => {
+        return (
+            <Alert color="danger" isOpen={visible} toggle={() => setVisible(false)}>
+                {mensajeErrorAxio}
+            </Alert>
+        )
+    }
+ 
     const renderHeader = () => {
         let headerElement = ['id','Customer Name', 'email', 'ip', 'registered', 'acction']
 
@@ -92,7 +104,8 @@ const Customer = () => {
         <>
             {isLoading ? (<Spinner color="primary" />) : (
                 <>
-                    <Table id='customer'>
+                    {renderAlert()}
+                    <Table hover>
                         <thead>
                             <tr>{renderHeader()}</tr>
                         </thead>
@@ -100,7 +113,7 @@ const Customer = () => {
                             {renderBody()}
                         </tbody>
                     </Table>
-                    <Button color="success" className={"buttonAdd"} onClick={() => openUpdateModal({}, false)}>Add customer</Button>{' '}
+                    <Button color="success" className={"buttonAdd"} onClick={() => openUpdateModal({}, false)}>Add customer</Button>
                 </>
             )}
             <ModalForm 
