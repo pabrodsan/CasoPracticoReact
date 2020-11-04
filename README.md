@@ -7,6 +7,11 @@ realizar un panel de administración para un ecommerce por lo que necesitamos qu
 La información de los productos se captura a través del Mock Graphql y la información de los clientes con Mock API. 
 El db.json contiene datos de clientes que han sido generados gracias a Json-generator.
 
+## Tecnologías utilizadas
+
+* React
+*
+
 ## Despliegue de la app
 
 Para instalar las dependecias.
@@ -19,17 +24,24 @@ npm install
 
 Nos posicionamos en la ruta de la carpeta db del proyecto, y ejecutamos:
 
+~~~
+json-server --watch db.json
+~~~
 
+## Desplegar graphql-faker
 
-En una terminal ejecutamos:
+En otro terminal situado en la misma carpeta ejecutamos :
+
+~~~
+graphql-faker --open query.sdl
+~~~
+
+## Desplegar app web
+
+Ejecutamos el siguiente código, nos dirá que el puerto está en uso y si queremos que lo despliegue en otro, aceptamos.
 
 ~~~
 npm start
 ~~~
 
-y en otro:
-
-~~~
-npm run android
-~~~
 
