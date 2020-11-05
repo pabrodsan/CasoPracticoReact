@@ -245,10 +245,5 @@ table {
 
 #rwd-table {
     @extend %responive-tables;
-    @include responive-tables('ID', 'CUSTOMER NAME', 'EAMIL', 'IP', 'REGISTERED', 'ACCTION ');
-}
-
-#rwd-table-large {
-    @extend %responive-tables-large;
-    @include responive-tables-large('Heading Col 1', 'Heading Col 2', 'Heading Col 3','Heading Col 4');
+    @include responive-tables('PRODUCT NAME', 'PRICE);
 }
