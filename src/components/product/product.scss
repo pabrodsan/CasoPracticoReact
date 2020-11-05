@@ -245,5 +245,5 @@ table {
 
 #rwd-table {
     @extend %responive-tables;
-    @include responive-tables('PRODUCT NAME', 'PRICE);
+    @include responive-tables('PRODUCT NAME', 'PRICE ($)', 'ACCTIONS');
 }
